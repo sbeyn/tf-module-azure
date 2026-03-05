@@ -99,7 +99,8 @@ resource "azurerm_linux_virtual_machine" "hobbyfarm_vm" {
   resource_group_name   = azurerm_resource_group.rg.name
   network_interface_ids = [azurerm_network_interface.hobbyfarm_nic.id]
   size                  = var.instance_type
-  user_data             = var.cloud-config
+
+  user_data             = var.cloud-config == "" ? null : var.cloud-config
 
   tags = {
     Name        = var.name
