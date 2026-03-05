@@ -141,3 +141,15 @@ resource "azurerm_linux_virtual_machine" "hobbyfarm_vm" {
     storage_account_uri = azurerm_storage_account.hobbyfarm_storage_account.primary_blob_endpoint
   }
 }
+
+output "private_ip" {
+  value = azurerm_network_interface.hobbyfarm_nic.private_ip_address
+}
+
+output "public_ip" {
+  value = azurerm_public_ip.hobbyfarm_public_ip.ip_address
+}
+
+output "hostname" {
+  value = azurerm_public_ip.hobbyfarm_public_ip.fqdn
+}
