@@ -93,14 +93,6 @@ resource "azurerm_network_interface_security_group_association" "hobbyfarm" {
   network_security_group_id = azurerm_network_security_group.hobbyfarm_nsg.id
 }
 
-resource "azurerm_storage_account" "hobbyfarm_storage_account" {
-  name                     = "diag${random_id.random_id.hex}"
-  location                 = azurerm_resource_group.rg.location
-  resource_group_name      = azurerm_resource_group.rg.name
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-}
-
 resource "azurerm_linux_virtual_machine" "hobbyfarm_vm" {
   name                  = var.name
   location              = azurerm_resource_group.rg.location
@@ -137,9 +129,6 @@ resource "azurerm_linux_virtual_machine" "hobbyfarm_vm" {
     public_key = var.public_key
   }
 
-  boot_diagnostics {
-    storage_account_uri = azurerm_storage_account.hobbyfarm_storage_account.primary_blob_endpoint
-  }
 }
 
 output "private_ip" {
